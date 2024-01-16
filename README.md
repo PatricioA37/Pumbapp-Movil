@@ -1,7 +1,4 @@
-# Pumbapp
+# Pumbapp 1.0
 
-A new Flutter project.
+Proyecto de aplicación móvil para gestión y trazabilidad de animales desarrollado en flutter
 
-## Getting Started
-
-FlutterFlow projects are built to run on the Flutter _stable_ release.
