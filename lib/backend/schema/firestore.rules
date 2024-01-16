@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /Productor/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /Productor/{parent}/Registro_Animal/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/Registro_Animal/{document} {
+      allow read: if true;
+    }
+
+
+    match /Productor/{parent}/Registro_Monta/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/Registro_Monta/{document} {
+      allow read: if true;
+    }
+
+
+    match /Productor/{parent}/Registro_Parto/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/Registro_Parto/{document} {
+      allow read: if true;
+    }
+
+
+    match /Productor/{parent}/Vacunas/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/Vacunas/{document} {
+      allow read: if true;
+    }
+
+
+    match /Productor/{parent}/Alimentacion/{document} {
+      allow create: if request.auth.uid == parent;
+      allow read: if request.auth.uid == parent;
+      allow write: if request.auth.uid == parent;
+      allow delete: if false;
+    }
+  }
+}
