@@ -303,15 +303,26 @@ class _RegistroAnimalWidgetState extends State<RegistroAnimalWidget>
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
+                                                          final nextId = getNextId(
+                                                              registroAnimalRegistroAnimalRecordList);
                                                           setState(() {
                                                             _model.idController
                                                                     ?.text =
-                                                                valueOrDefault<
-                                                                    String>(
-                                                              double.infinity
-                                                                  .toString(),
-                                                              '1',
-                                                            );
+                                                                nextId
+                                                                    .toString();
+                                                            _model.tipoValueController
+                                                                    ?.value =
+                                                                'Verraco';
+                                                            _model.tipoValue =
+                                                                'Verraco';
+                                                            _model.fechaActualController
+                                                                    ?.text =
+                                                                getToday();
+                                                            _model
+                                                                .generoValueController
+                                                                ?.value = 'Macho';
+                                                            _model.generoValue =
+                                                                'Macho';
                                                           });
                                                         },
                                                         child: Column(
@@ -464,16 +475,133 @@ class _RegistroAnimalWidgetState extends State<RegistroAnimalWidget>
                                               child: Align(
                                                 alignment: AlignmentDirectional(
                                                     0.0, -1.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, -1.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    final nextId = getNextId(
+                                                        registroAnimalRegistroAnimalRecordList);
+                                                    setState(() {
+                                                      _model.idController
+                                                              ?.text =
+                                                          nextId.toString();
+                                                      _model.tipoValueController
+                                                          ?.value = 'Marrana';
+                                                      _model.tipoValue =
+                                                          'Marrana';
+                                                      _model
+                                                          .fechaActualController
+                                                          ?.text = getToday();
+                                                      _model
+                                                          .generoValueController
+                                                          ?.value = 'Hembra';
+                                                      _model.generoValue =
+                                                          'Hembra';
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.254,
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.254,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      shape: BoxShape.circle,
+                                                      border: Border.all(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        width: 5.0,
+                                                      ),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      13.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: FaIcon(
+                                                            FontAwesomeIcons
+                                                                .piggyBank,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            size: 30.0,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            'Añadir Marrana',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .error,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ).animateOnPageLoad(animationsMap[
+                                                      'containerOnPageLoadAnimation3']!),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, -1.0),
+                                                    child: InkWell(
+                                                      onTap: () async {
+                                                        final nextId = getNextId(
+                                                            registroAnimalRegistroAnimalRecordList);
+                                                        setState(() {
+                                                          _model.idController
+                                                                  ?.text =
+                                                              nextId.toString();
+                                                          _model
+                                                              .tipoValueController
+                                                              ?.value = 'Lechon';
+                                                          _model.tipoValue =
+                                                              'Lechon';
+                                                          _model
+                                                              .fechaActualController
+                                                              ?.text = getToday();
+                                                          _model
+                                                              .generoValueController
+                                                              ?.value = null;
+                                                          _model.generoValue =
+                                                              null;
+                                                        });
+                                                      },
                                                       child: Container(
                                                         width:
                                                             MediaQuery.sizeOf(
@@ -493,9 +621,8 @@ class _RegistroAnimalWidgetState extends State<RegistroAnimalWidget>
                                                           shape:
                                                               BoxShape.circle,
                                                           border: Border.all(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
+                                                            color: Color(
+                                                                0xFF00A4FF),
                                                             width: 5.0,
                                                           ),
                                                         ),
@@ -514,15 +641,14 @@ class _RegistroAnimalWidgetState extends State<RegistroAnimalWidget>
                                                               child: FaIcon(
                                                                 FontAwesomeIcons
                                                                     .piggyBank,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .error,
+                                                                color: Color(
+                                                                    0xFF00A4FF),
                                                                 size: 30.0,
                                                               ),
                                                             ),
                                                             Expanded(
                                                               child: Text(
-                                                                'Añadir Marrana',
+                                                                'Añadir Lechon',
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -532,9 +658,8 @@ class _RegistroAnimalWidgetState extends State<RegistroAnimalWidget>
                                                                     .override(
                                                                       fontFamily:
                                                                           'Readex Pro',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .error,
+                                                                      color: Color(
+                                                                          0xFF00A4FF),
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
@@ -545,89 +670,8 @@ class _RegistroAnimalWidgetState extends State<RegistroAnimalWidget>
                                                         ),
                                                       ).animateOnPageLoad(
                                                           animationsMap[
-                                                              'containerOnPageLoadAnimation3']!),
+                                                              'containerOnPageLoadAnimation4']!),
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, -1.0),
-                                                    child: Container(
-                                                      width: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width *
-                                                          0.254,
-                                                      height: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width *
-                                                          0.254,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        shape: BoxShape.circle,
-                                                        border: Border.all(
-                                                          color:
-                                                              Color(0xFF00A4FF),
-                                                          width: 5.0,
-                                                        ),
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        13.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: FaIcon(
-                                                              FontAwesomeIcons
-                                                                  .piggyBank,
-                                                              color: Color(
-                                                                  0xFF00A4FF),
-                                                              size: 30.0,
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Text(
-                                                              'Añadir Lechon',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Readex Pro',
-                                                                    color: Color(
-                                                                        0xFF00A4FF),
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ).animateOnPageLoad(
-                                                        animationsMap[
-                                                            'containerOnPageLoadAnimation4']!),
                                                   ),
                                                 ],
                                               ),
@@ -1379,4 +1423,15 @@ class _RegistroAnimalWidgetState extends State<RegistroAnimalWidget>
       },
     );
   }
+}
+
+int getNextId(List<RegistroAnimalRecord> registros) {
+  if (registros.isEmpty) return 1;
+  final ids = registros.map((r) => r.id ?? 0).toList();
+  return (ids.reduce((a, b) => a > b ? a : b)) + 1;
+}
+
+String getToday() {
+  final now = DateTime.now();
+  return '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year}';
 }

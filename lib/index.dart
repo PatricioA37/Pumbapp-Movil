@@ -13,4 +13,4 @@ export '/pages/registo_vacuna/registo_vacuna_widget.dart'
 export '/pages/detalle_parto/detalle_parto_widget.dart' show DetallePartoWidget;
 export '/pages/sign_i_n/sign_i_n_widget.dart' show SignINWidget;
 export '/pages/sign_u_p/sign_u_p_widget.dart' show SignUPWidget;
-export '/pages/teset/teset_widget.dart' show TesetWidget;
+//export '/pages/teset/teset_widget.dart' show TesetWidget;

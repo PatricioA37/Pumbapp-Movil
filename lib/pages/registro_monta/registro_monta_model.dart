@@ -7,7 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import '/custom_code/actions/index.dart' as actions;
+import '../../custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'registro_monta_widget.dart' show RegistroMontaWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';

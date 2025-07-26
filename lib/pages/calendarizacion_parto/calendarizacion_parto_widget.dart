@@ -151,6 +151,7 @@ class _CalendarizacionPartoWidgetState
                                         weekFormat: false,
                                         weekStartsMonday: true,
                                         initialDate: getCurrentTimestamp,
+                                        locale: 'es', // <-- Agrega esta línea
                                         onChange:
                                             (DateTimeRange? newSelectedDate) {
                                           setState(() =>

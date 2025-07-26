@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
-
+import 'dart:core';
 import '/index.dart';
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -133,11 +133,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/signUP',
           builder: (context, params) => SignUPWidget(),
         ),
-        FFRoute(
-          name: 'Teset',
-          path: '/teset',
-          builder: (context, params) => TesetWidget(),
-        )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 
@@ -153,7 +148,7 @@ extension NavigationExtensions on BuildContext {
   void goNamedAuth(
     String name,
     bool mounted, {
-    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, String> params = const <String, String>{},
     Map<String, String> queryParameters = const <String, String>{},
     Object? extra,
     bool ignoreRedirect = false,
@@ -162,15 +157,14 @@ extension NavigationExtensions on BuildContext {
           ? null
           : goNamed(
               name,
-              pathParameters: pathParameters,
-              queryParameters: queryParameters,
+              params: params,
               extra: extra,
             );
 
   void pushNamedAuth(
     String name,
     bool mounted, {
-    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, String> params = const <String, String>{},
     Map<String, String> queryParameters = const <String, String>{},
     Object? extra,
     bool ignoreRedirect = false,
@@ -179,8 +173,7 @@ extension NavigationExtensions on BuildContext {
           ? null
           : pushNamed(
               name,
-              pathParameters: pathParameters,
-              queryParameters: queryParameters,
+              params: params,
               extra: extra,
             );
 
@@ -211,10 +204,12 @@ extension GoRouterExtensions on GoRouter {
 extension _GoRouterStateExtensions on GoRouterState {
   Map<String, dynamic> get extraMap =>
       extra != null ? extra as Map<String, dynamic> : {};
+
   Map<String, dynamic> get allParams => <String, dynamic>{}
-    ..addAll(pathParameters)
-    ..addAll(queryParameters)
+    ..addAll(params)
+    ..addAll(Uri.parse(location).queryParameters) // Usar location
     ..addAll(extraMap);
+
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
       : TransitionInfo.appDefault();
@@ -333,7 +328,7 @@ class FFRoute {
           return transitionInfo.hasTransition
               ? CustomTransitionPage(
                   key: state.pageKey,
-                  child: child,
+                  child: child, // Pasa child aquí
                   transitionDuration: transitionInfo.duration,
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) =>
@@ -350,7 +345,8 @@ class FFRoute {
                     child,
                   ),
                 )
-              : MaterialPage(key: state.pageKey, child: child);
+              : MaterialPage(
+                  key: state.pageKey, child: child); // Pasa child aquí
         },
         routes: routes,
       );
@@ -380,7 +376,7 @@ class RootPageContext {
   static bool isInactiveRootPage(BuildContext context) {
     final rootPageContext = context.read<RootPageContext?>();
     final isRootPage = rootPageContext?.isRootPage ?? false;
-    final location = GoRouter.of(context).location;
+    final location = GoRouter.of(context).location; // Cambiado .uri a .location
     return isRootPage &&
         location != '/' &&
         location != rootPageContext?.errorRoute;
