@@ -1,0 +1,40 @@
+name: pumbapp
+description: A new Flutter project.
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  
+  # FlutterFlow specific dependencies
+  flutter_flow: ^0.1.0  # Ajusta la versión según la que necesites
+  flutter_flow_theme: ^0.1.0  # Ajusta la versión según la que necesites
+  
+  # UI and styling
+  flutter_screenutil: ^5.9.0
+  auto_size_text: ^3.0.0
+  font_awesome_flutter: ^10.8.0
+  google_fonts: ^6.2.1
+  
+  # Firebase
+  firebase_core: ^3.8.0
+  firebase_auth: ^5.3.3
+  cloud_firestore: ^5.5.0
+  firebase_storage: ^12.3.6
+  
+  # Navigation
+  go_router: ^13.0.0  # Actualizado a la última versión estable
+  
+  # Other dependencies (mantén solo las que realmente necesitas)
+  provider: ^6.1.2
+  shared_preferences: ^2.3.3
+  intl: ^0.20.2
+  
+  # Resto de tus dependencias actuales...

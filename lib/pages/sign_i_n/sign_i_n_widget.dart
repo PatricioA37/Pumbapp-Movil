@@ -3,10 +3,13 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/utils/responsive_helper.dart';
+import '/widgets/responsive_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'sign_i_n_model.dart';
@@ -76,8 +79,17 @@ class _SignINWidgetState extends State<SignINWidget>
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
+  }
+
+  Widget _buildTabletLayout(BuildContext context) {
+    return _buildMobileLayout(
+        context); // Por ahora usamos el mismo layout que mobile
+  }
+
+  Widget _buildDesktopLayout(BuildContext context) {
+    return _buildMobileLayout(
+        context); // Por ahora usamos el mismo layout que mobile
   }
 
   @override
@@ -91,6 +103,14 @@ class _SignINWidgetState extends State<SignINWidget>
       );
     }
 
+    return ResponsiveLayout(
+      mobile: _buildMobileLayout(context),
+      tablet: _buildTabletLayout(context),
+      desktop: _buildDesktopLayout(context),
+    );
+  }
+
+  Widget _buildMobileLayout(BuildContext context) {
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -150,7 +170,7 @@ class _SignINWidgetState extends State<SignINWidget>
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(4.0),
+                              padding: EdgeInsets.all(4.0.r),
                               child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -160,14 +180,14 @@ class _SignINWidgetState extends State<SignINWidget>
                                     Align(
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
-                                        padding: EdgeInsets.all(10.0),
+                                        padding: EdgeInsets.all(10.0.r),
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(25.0),
                                           child: Image.asset(
                                             'assets/images/LOGO_pumbapp.png',
-                                            width: 250.0,
-                                            height: 78.0,
+                                            width: 250.w,
+                                            height: 78.h,
                                             fit: BoxFit.fitWidth,
                                             alignment: Alignment(0.0, 0.0),
                                           ),

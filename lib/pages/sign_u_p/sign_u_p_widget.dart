@@ -5,6 +5,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/utils/responsive_helper.dart';
+import '/widgets/responsive_widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -87,8 +90,15 @@ class _SignUPWidgetState extends State<SignUPWidget>
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
+  }
+
+  Widget _buildTabletLayout(BuildContext context) {
+    return _buildMobileLayout(context); // Por ahora usamos el mismo layout que mobile
+  }
+
+  Widget _buildDesktopLayout(BuildContext context) {
+    return _buildMobileLayout(context); // Por ahora usamos el mismo layout que mobile
   }
 
   @override
@@ -102,6 +112,14 @@ class _SignUPWidgetState extends State<SignUPWidget>
       );
     }
 
+    return ResponsiveLayout(
+      mobile: _buildMobileLayout(context),
+      tablet: _buildTabletLayout(context),
+      desktop: _buildDesktopLayout(context),
+    );
+  }
+
+  Widget _buildMobileLayout(BuildContext context) {
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -114,13 +132,13 @@ class _SignUPWidgetState extends State<SignUPWidget>
           automaticallyImplyLeading: false,
           leading: FlutterFlowIconButton(
             borderColor: Colors.transparent,
-            borderRadius: 30.0,
+            borderRadius: 30.r,
             borderWidth: 1.0,
-            buttonSize: 60.0,
+            buttonSize: 60.r,
             icon: Icon(
               Icons.arrow_back_rounded,
               color: Colors.white,
-              size: 30.0,
+              size: 30.r,
             ),
             onPressed: () async {
               context.pushNamed('SignIN');
@@ -131,7 +149,7 @@ class _SignUPWidgetState extends State<SignUPWidget>
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
-                  fontSize: 22.0,
+                  fontSize: 22.sp,
                 ),
           ),
           actions: [],
