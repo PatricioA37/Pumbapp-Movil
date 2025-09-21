@@ -4,9 +4,9 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 import 'registo_vacuna_model.dart';
 export 'registo_vacuna_model.dart';
@@ -31,11 +31,33 @@ class _RegistoVacunaWidgetState extends State<RegistoVacunaWidget> {
     _model.iDVacController ??= TextEditingController();
     _model.iDVacFocusNode ??= FocusNode();
 
+    _model.fechaController ??= TextEditingController();
+    _model.fechaFocusNode ??= FocusNode();
+
     _model.nombreVacController ??= TextEditingController();
     _model.nombreVacFocusNode ??= FocusNode();
 
     _model.descripcionController ??= TextEditingController();
     _model.descripcionFocusNode ??= FocusNode();
+    _loadInitialData();
+  }
+
+  void _loadInitialData() async {
+    final allRecords = await queryVacunasRecordOnce(
+      queryBuilder: (vacunasRecord) => vacunasRecord.where(
+        'ID_Produc',
+        isEqualTo: currentUserReference,
+      ),
+    );
+    final nextId = getNextVacunaId(allRecords);
+    final today = DateTime.now();
+    final formattedDate = DateFormat('dd/MM/yyyy').format(today);
+    if (mounted) {
+      setState(() {
+        _model.iDVacController?.text = nextId.toString();
+        _model.fechaController?.text = formattedDate;
+      });
+    }
   }
 
   @override
@@ -43,6 +65,15 @@ class _RegistoVacunaWidgetState extends State<RegistoVacunaWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  int getNextVacunaId(List<VacunasRecord> vacunas) {
+    if (vacunas.isEmpty) {
+      return 1;
+    }
+    final ids = vacunas.map((v) => v.iDVacuna).toList();
+    int maxId = ids.reduce((a, b) => a > b ? a : b);
+    return maxId + 1;
   }
 
   @override
@@ -166,6 +197,7 @@ class _RegistoVacunaWidgetState extends State<RegistoVacunaWidget> {
                                             controller: _model.iDVacController,
                                             focusNode: _model.iDVacFocusNode,
                                             autofocus: true,
+                                            readOnly: true,
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelStyle:
@@ -227,6 +259,136 @@ class _RegistoVacunaWidgetState extends State<RegistoVacunaWidget> {
                                             validator: _model
                                                 .iDVacControllerValidator
                                                 .asValidator(context),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 5.0),
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  border: Border.all(
+                                    color: Color(0xFFF1F4F8),
+                                    width: 2.0,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 12.0, 16.0, 5.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Fecha:',
+                                        textAlign: TextAlign.end,
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .override(
+                                              fontFamily: 'Plus Jakarta Sans',
+                                              color: Color(0xFF101213),
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 0.0, 8.0, 0.0),
+                                          child: TextFormField(
+                                            controller: _model.fechaController,
+                                            focusNode: _model.fechaFocusNode,
+                                            autofocus: false,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              labelStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium,
+                                              hintStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium,
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              errorBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              focusedErrorBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  color: Colors.black,
+                                                ),
+                                            validator: _model
+                                                .fechaControllerValidator
+                                                .asValidator(context),
+                                            onTap: () async {
+                                              DateTime? pickedDate =
+                                                  await showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                          DateTime.now(),
+                                                      firstDate: DateTime(2000),
+                                                      lastDate: DateTime(2101));
+
+                                              if (pickedDate != null) {
+                                                String formattedDate =
+                                                    DateFormat('dd/MM/yyyy')
+                                                        .format(pickedDate);
+                                                setState(() {
+                                                  _model.fechaController?.text =
+                                                      formattedDate;
+                                                });
+                                              }
+                                            },
                                           ),
                                         ),
                                       ),
@@ -517,129 +679,42 @@ class _RegistoVacunaWidgetState extends State<RegistoVacunaWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 12.0, 0.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        30.0, 0.0, 15.0, 0.0),
-                                                child: StreamBuilder<
-                                                    List<VacunasRecord>>(
-                                                  stream: queryVacunasRecord(
-                                                    queryBuilder:
-                                                        (vacunasRecord) =>
-                                                            vacunasRecord.where(
-                                                      'ID_Vacuna',
-                                                      isEqualTo:
-                                                          listViewVacunasRecord
-                                                              .iDVacuna,
-                                                    ),
-                                                  ),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                    Color>(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    return Text(
-                                                      listViewVacunasRecord
-                                                          .iDVacuna
-                                                          .toString(),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyLarge
-                                                          .override(
-                                                            fontFamily:
-                                                                'Plus Jakarta Sans',
-                                                            color: Color(
-                                                                0xFF101213),
-                                                            fontSize: 16.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                    );
-                                                  },
-                                                ),
+                                        Text(
+                                          listViewVacunasRecord.iDVacuna
+                                              .toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyLarge
+                                              .override(
+                                                fontFamily: 'Plus Jakarta Sans',
+                                                color: Color(0xFF101213),
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
                                               ),
-                                            ],
-                                          ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  15.0, 0.0, 30.0, 0.0),
-                                          child: StreamBuilder<
-                                              List<VacunasRecord>>(
-                                            stream: queryVacunasRecord(
-                                              queryBuilder: (vacunasRecord) =>
-                                                  vacunasRecord.where(
-                                                'Tipo_Vacuna',
-                                                isEqualTo: listViewVacunasRecord
-                                                    .tipoVacuna,
+                                        Text(
+                                          DateFormat('dd/MM/yyyy').format(
+                                              listViewVacunasRecord
+                                                  .fechaCreacion!),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyLarge
+                                              .override(
+                                                fontFamily: 'Plus Jakarta Sans',
+                                                color: Color(0xFF101213),
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
                                               ),
-                                            ),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                              return Text(
-                                                listViewVacunasRecord
-                                                    .tipoVacuna,
-                                                textAlign: TextAlign.end,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF101213),
-                                                          fontSize: 22.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              );
-                                            },
-                                          ),
+                                        ),
+                                        Text(
+                                          listViewVacunasRecord.nombreVacuna,
+                                          textAlign: TextAlign.end,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyLarge
+                                              .override(
+                                                fontFamily: 'Plus Jakarta Sans',
+                                                color: Color(0xFF101213),
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -672,7 +747,11 @@ class _RegistoVacunaWidgetState extends State<RegistoVacunaWidget> {
                             ),
                             ...mapToFirestore(
                               {
-                                'Fecha_Creacion': FieldValue.serverTimestamp(),
+                                'Fecha_Creacion':
+                                    _model.fechaController.text.isNotEmpty
+                                        ? DateFormat('dd/MM/yyyy')
+                                            .parse(_model.fechaController.text)
+                                        : FieldValue.serverTimestamp(),
                               },
                             ),
                           });
@@ -680,7 +759,9 @@ class _RegistoVacunaWidgetState extends State<RegistoVacunaWidget> {
                             _model.iDVacController?.clear();
                             _model.nombreVacController?.clear();
                             _model.descripcionController?.clear();
+                            _model.fechaController?.clear();
                           });
+                          _loadInitialData();
                           await showDialog<bool>(
                             context: context,
                             builder: (alertDialogContext) {
@@ -692,12 +773,7 @@ class _RegistoVacunaWidgetState extends State<RegistoVacunaWidget> {
                                   TextButton(
                                     onPressed: () => Navigator.pop(
                                         alertDialogContext, false),
-                                    child: Text('Cancelar'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext, true),
-                                    child: Text('Confirmar'),
+                                    child: Text('Cerrar'),
                                   ),
                                 ],
                               );

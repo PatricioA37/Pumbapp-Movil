@@ -19,6 +19,10 @@ class RegistoVacunaModel extends FlutterFlowModel<RegistoVacunaWidget> {
   FocusNode? iDVacFocusNode;
   TextEditingController? iDVacController;
   String? Function(BuildContext, String?)? iDVacControllerValidator;
+  // State field(s) for Fecha widget.
+  FocusNode? fechaFocusNode;
+  TextEditingController? fechaController;
+  String? Function(BuildContext, String?)? fechaControllerValidator;
   // State field(s) for Nombre_Vac widget.
   FocusNode? nombreVacFocusNode;
   TextEditingController? nombreVacController;
@@ -36,6 +40,9 @@ class RegistoVacunaModel extends FlutterFlowModel<RegistoVacunaWidget> {
     unfocusNode.dispose();
     iDVacFocusNode?.dispose();
     iDVacController?.dispose();
+
+    fechaFocusNode?.dispose();
+    fechaController?.dispose();
 
     nombreVacFocusNode?.dispose();
     nombreVacController?.dispose();
